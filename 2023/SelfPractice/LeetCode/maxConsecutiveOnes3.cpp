@@ -3,6 +3,8 @@
 using namespace std;
 
 int longestOnes(vector<int>& nums, int k) {
+    k = 1;
+
     int ans = 0;
     int sum = 0;
     for(int i=0; i<nums.size(); i++){
@@ -19,15 +21,16 @@ int longestOnes(vector<int>& nums, int k) {
         else{
             k--;
             sum++;
+            ans = max(sum,ans);
         }
         
     }       
     
-    return ans;
+    return ans-1;
 }
 
 int main(){
-    vector<int> nums = {1,1,1,0,0,0,1,1,1,1,0};
+    vector<int> nums = {1,1,1,0};
     int ans = longestOnes(nums,2);
     cout << ans;
 }
