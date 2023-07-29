@@ -95,13 +95,43 @@ string decodeString(string s) {
     stack<char> pile;
     
 
-    string ans = ""; bool
-    // for(int i=0; i<s.size(); i++){
-    //     if( s[i] == ']' ){
+    string ans = ""; 
+    for(int i=0; i<s.size(); i++){
+        if( s[i] == ']' ){
+            // start decode
+            string code = "";
+            while(pile.top() != '['){
+                code = pile.top() + code;
+                pile.pop();
+            }
+            pile.pop();
 
-    //     }
-    // }       
+            string times = "";
+            while(!pile.empty() && isdigit(pile.top())){
+                times = pile.top() + times;
+                pile.pop();
+            }
+            
+            int n = stoi(times);
+            
 
+            for(int j=0; j<n; j++){
+                for(char c : code){
+                    pile.push(c);
+                }
+            }
+        }
+        else{
+            pile.push(s[i]);
+        }
+    }       
+    
+    while(!pile.empty()){
+        ans = pile.top() + ans;
+        pile.pop();
+    }
+
+    return ans;
 }
 
 int main(){
@@ -109,10 +139,13 @@ int main(){
     //cout << removeStars("leet**cod*e");
     //cout << '#';
 
-    vector<int> as = {5 , -6, 2 ,-2 ,3 ,4 ,-6 ,7};
-    as = asteroidCollision(as);
+    // vector<int> as = {5 , -6, 2 ,-2 ,3 ,4 ,-6 ,7};
+    // as = asteroidCollision(as);
 
-    for(int a : as){
-        cout << a << ' ';
-    }
+    // for(int a : as){
+    //     cout << a << ' ';
+    // }
+
+
+    cout << decodeString("10[a]");
 }
